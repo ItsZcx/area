@@ -101,7 +101,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](./LICENSE
 
 - **Joan Pau Mérida Ruiz**: *Backend Developer, Infra Manager* ([GitHub](https://github.com/itszcx), [LinkedIn](https://www.linkedin.com/in/joan-pau-merida-ruiz), [Email](mailto:joanpaumeridaruiz@gmail.com))
 - **Alex Arteaga Contijoch**: *Backend Developer* ([GitHub](https://github.com/alex-alra-arteaga), [LinkedIn](https://www.linkedin.com/in/alex-arteaga-c/), [Email](mailto:alex.arteaga-contijoch@epitech.eu))
-- **David Salvatella Gelpi**: *Fullstack Developer* ([GitHub](https://github.com/xRozzo), [LinkedIn](hthttps://www.linkedin.com/in/david-salvatella/), [Email](mailto:david.salvatella-gelpi@epitech.eu))
+- **David Salvatella Gelpi**: *Fullstack Developer* ([GitHub](https://github.com/xRozzo), [LinkedIn](https://www.linkedin.com/in/david-salvatella/), [Email](mailto:david.salvatella-gelpi@epitech.eu))
 - **Joel Revuelta Gomez**: *Frontend Developer* ([GitHub](https://github.com/Joel-Revuelta), [LinkedIn](https://www.linkedin.com/in/joel-revuelta/), [Email](mailto:joel.revuelta-gomez@epitech.eu))
 - **Pol Rodriguez Garcia**: *Mobile Developer* ([GitHub](https://github.com/polroga31), [LinkedIn](https://www.linkedin.com/in/pol-rodriguez-garcia/), [Email](mailto:pol.rodriguez-garcia@epitech.eu))
 
