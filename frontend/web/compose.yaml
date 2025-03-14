@@ -1,0 +1,31 @@
+services:
+  nextjs-dev:
+    build:
+      context: .
+      network: host
+      dockerfile: ./Dockerfile
+    image: area-web-dev
+    pull_policy: build
+    ports:
+      - '8081:3000'
+    container_name: area-web-dev
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - /app/.next
+      - /app/node_modules
+
+  # nextjs-prod:
+  #   build:
+  #     context: .
+  #     network: host
+  #     dockerfile: ./Dockerfile
+  #     target: prod
+  #   image: survivor-pool-prod
+  #   pull_policy: build
+  #   ports:
+  #     - '8081:3000'
+  #   container_name: survivor-pool-prod
+

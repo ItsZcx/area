@@ -1,0 +1,14 @@
+---
+services:
+    google-microservice:
+        build:
+            context: .
+            network: host
+            dockerfile: ./Dockerfile
+        pull_policy: build
+        image: google-microservice
+        container_name: google-microservice
+        ports:
+            - 8084:8084
+        volumes:
+            - ./src:/google-microservice/src

@@ -1,0 +1,23 @@
+# Ignore node modules and logs
+node_modules
+npm-debug.log
+pnpm-debug.log
+
+# Ignore Docker files
+Dockerfile
+docker-compose*.yml
+
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore editor directories and files
+.idea
+.vscode
+*.swp
+
+# Ignore build output
+dist
+build
+.cache
+coverage

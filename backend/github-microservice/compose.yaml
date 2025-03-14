@@ -1,0 +1,14 @@
+---
+services:
+    github-microservice:
+        build:
+            context: .
+            network: host
+            dockerfile: ./Dockerfile
+        pull_policy: build
+        image: github-microservice
+        container_name: github-microservice
+        ports:
+            - 8083:8083
+        volumes:
+            - ./src:/github-microservice/src

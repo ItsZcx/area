@@ -1,0 +1,16 @@
+name: client-mobile
+
+services:
+  client-mobile:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    pull_policy: build
+    container_name: client-mobile
+    volumes:
+      - client-apk:/app/client-apk
+    image: client-mobile
+
+volumes:
+  client-apk:
+    driver: local

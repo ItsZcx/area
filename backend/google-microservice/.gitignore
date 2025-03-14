@@ -1,0 +1,8 @@
+.vscode
+.env
+.venv
+__pycache__
+.ruff_cache
+service_key.json
+gmail_watch_info.json
+poetry.lock

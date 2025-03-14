@@ -1,0 +1,131 @@
+services:
+  area-postgres:
+    image: postgres:16.2-alpine
+    container_name: area-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    volumes:
+      - area-db:/var/lib/postgresql/data
+    networks:
+      - area-network
+
+  area-core-api:
+    build:
+      context: ./backend/core-api
+      dockerfile: Dockerfile
+    pull_policy: build
+    image: area-core-api
+    container_name: area-core-api
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend/core-api/src:/core-api/src
+    networks:
+      - area-network
+    depends_on:
+      - area-postgres
+    environment:
+      - HOST=0.0.0.0
+    command: >
+      sh -c "poetry run uvicorn src.main:app --host 0.0.0.0 --port 8080"
+
+  test:
+    profiles: ["test"]  # Add this line
+    build:
+      context: ./backend/core-api
+      dockerfile: Dockerfile
+    image: area-core-api-test
+    container_name: area-core-api-test
+    command: >
+      sh -c "sleep 10 && poetry run pytest"
+    volumes:
+      - ./backend/core-api/src:/core-api/src
+      - ./backend/core-api/tests:/core-api/tests
+    depends_on:
+      - area-postgres
+      - area-core-api
+    networks:
+      - area-network
+    environment:
+      - API_BASE_URL=http://area-core-api:8080/api/v1
+
+  area-github-microservice:
+    build:
+      context: ./backend/github-microservice
+      dockerfile: ./Dockerfile
+    pull_policy: build
+    image: area-github-microservice
+    container_name: area-github-microservice
+    ports:
+      - 8083:8083
+    volumes:
+      - ./backend/github-microservice/src:/github-microservice/src
+    networks:
+      - area-network
+    depends_on:
+      - area-core-api
+
+  area-google-microservice:
+    build:
+      context: ./backend/google-microservice
+      dockerfile: ./Dockerfile
+    pull_policy: build
+    image: area-google-microservice
+    container_name: area-google-microservice
+    ports:
+      - 8084:8084
+    volumes:
+      - ./backend/google-microservice/src:/google-microservice/src
+    networks:
+      - area-network
+    depends_on:
+      - area-core-api
+
+  client-mobile:
+    build:
+      context: ./frontend/mobile
+      dockerfile: Dockerfile
+    pull_policy: build
+    container_name: client-mobile
+    volumes:
+      - client-apk:/app/client-apk
+    image: client-mobile
+    depends_on:
+      - area-core-api
+
+  area-web-dev:
+    build:
+      context: ./frontend/web
+      dockerfile: Dockerfile
+      target: dev
+    pull_policy: build
+    image: area-web-dev
+    ports:
+      - '8081:3000'
+    container_name: area-web-dev
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./frontend/web/src:/web/src
+      - ./frontend/web/public:/web/public
+      - client-apk:/web/client-apk
+    networks:
+      - area-network
+    depends_on:
+      - area-core-api
+      - client-mobile
+
+networks:
+  area-network:
+    driver: bridge
+    name: area-network
+
+volumes:
+  area-db:
+    driver: local
+  client-apk:
+    driver: local

@@ -1,0 +1,39 @@
+---
+services:
+    core-api:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        pull_policy: build
+        image: core-api
+        container_name: core-api
+        ports:
+            - 8080:8080
+        volumes:
+            - ./src:/core-api/src
+        networks:
+            - core-api-network
+        depends_on:
+            - postgres
+
+    postgres:
+        image: postgres:16.2-alpine
+        container_name: core-api-postgres
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=1234
+        volumes:
+            - db:/var/lib/postgresql/data
+        networks:
+            - core-api-network
+
+networks:
+    core-api-network:
+        driver: bridge
+        name: core-api-network
+
+volumes:
+    db:
+        driver: local
